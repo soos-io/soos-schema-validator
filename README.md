@@ -1,2 +1,2 @@
-# soos-json-schema-validator
-JSON Schema Validation Tool
+# soos-schema-validator
+JSON / XML Schema Validation Tool
