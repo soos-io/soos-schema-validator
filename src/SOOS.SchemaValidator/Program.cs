@@ -7,7 +7,7 @@ using CommandLine;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace SOOS.JsonSchemaValidator
+namespace SOOS.SchemaValidator
 {
   public static class Program
   {
@@ -18,6 +18,7 @@ namespace SOOS.JsonSchemaValidator
       ParseAndValidateOptionsAsync(args);
 
       var firstSchemaFile = _options.SchemaFiles.First();
+
       if (firstSchemaFile.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
       {
         await ValidateJsonFileAsync();
