@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SOOS.SchemaValidator": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}
