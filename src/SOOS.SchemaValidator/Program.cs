@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using CommandLine;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -72,7 +74,16 @@ namespace SOOS.SchemaValidator
 
     private static Task ValidateXmlFileAsync()
     {
-      throw new NotImplementedException("TODO XSD validation");
+      var schemaSet = new XmlSchemaSet();
+      foreach (var schemaFile in _options.SchemaFiles)
+      {
+        schemaSet.Add(targetNamespace: null, schemaFile);
+      }
+
+      var xDocument = XDocument.Load(_options.InputFile);
+      xDocument.Validate(schemaSet, (o, e) => Console.WriteLine($"> {e.Message}"));
+
+      return Task.CompletedTask;
     }
 
     private static void ParseAndValidateOptionsAsync(string[] args)
