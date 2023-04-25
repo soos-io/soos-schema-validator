@@ -80,8 +80,8 @@ namespace SOOS.SchemaValidator
         schemaSet.Add(targetNamespace: null, schemaFile);
       }
 
-      var xDocument = XDocument.Load(_options.InputFile);
-      xDocument.Validate(schemaSet, (o, e) => Console.WriteLine($"> {e.Message}"));
+      var xDocument = XDocument.Load(_options.InputFile, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+      xDocument.Validate(schemaSet, (o, e) => Console.WriteLine($"> {e.Exception.LineNumber} {e.Exception.LinePosition} {e.Message}"));
 
       return Task.CompletedTask;
     }
