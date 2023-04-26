@@ -81,7 +81,17 @@ namespace SOOS.SchemaValidator
       }
 
       var xDocument = XDocument.Load(_options.InputFile, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
-      xDocument.Validate(schemaSet, (o, e) => Console.WriteLine($"> {e.Exception.LineNumber} {e.Exception.LinePosition} {e.Message}"));
+      var hadErrors = false;
+      xDocument.Validate(schemaSet, (o, e) =>
+      {
+        hadErrors = true;
+        Console.WriteLine($"> {e.Exception.LineNumber} {e.Exception.LinePosition} {e.Message}");
+      });
+
+      if (!hadErrors)
+      {
+        Console.WriteLine("XML appears to be valid!");
+      }
 
       return Task.CompletedTask;
     }
